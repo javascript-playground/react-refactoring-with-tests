@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Money from './Money'
+import MoneyRange from './MoneyRange'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React</h2>
-        </div>
         <p className="App-intro">
-          The price of your tickets is <Money minAmount={2000} currency="GBP" />
+          The price of your tickets is <Money amount={2000} currency="GBP" />
         </p>
         <p className="App-intro">
-          The price of your tickets is <Money minAmount={2000} maxAmount={4000} currency="GBP" />
+          The price of your tickets is <MoneyRange min={2000} max={4000} currency="GBP" />
         </p>
       </div>
     );

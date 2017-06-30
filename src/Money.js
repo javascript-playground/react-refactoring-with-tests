@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 class Money extends Component {
   static propTypes = {
     currency: PropTypes.string.isRequired,
-    minAmount: PropTypes.number.isRequired,
-    maxAmount: PropTypes.number,
+    amount: PropTypes.number.isRequired,
   }
 
   getCurrencyData(currency) {
@@ -23,21 +22,13 @@ class Money extends Component {
     const currency = this.getCurrencyData()
     if (currency) {
       const { symbol, base } = currency
-      const formatted = this.formatAmount(this.props.minAmount, base)
-
-      if (this.props.maxAmount && this.props.maxAmount > this.props.minAmount) {
-        const formattedMax = this.formatAmount(this.props.maxAmount, base)
-
-        return (
-          <span>from {symbol}{formatted} to {symbol}{formattedMax}</span>
-        )
-      }
+      const formatted = this.formatAmount(this.props.amount, base)
 
       return (
         <span>{symbol}{formatted}</span>
       )
     } else {
-      return <span>{this.props.minAmount}</span>
+      return <span>{this.props.amount}</span>
     }
   }
 }
