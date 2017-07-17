@@ -1,36 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types'
+import { formatAmount } from './format-currency'
+import { getCurrencyData } from './currency-data'
 
-class Money extends Component {
-  static propTypes = {
-    currency: PropTypes.string.isRequired,
-    amount: PropTypes.number.isRequired,
+const Money = ({ currency, amount }) => {
+  const currencyData = getCurrencyData(currency)
+  if (currencyData) {
+    const { symbol, base } = currencyData
+    const formatted = formatAmount(amount, base)
+
+    return (
+      <span>{symbol}{formatted}</span>
+    )
+  } else {
+    return <span>{amount}</span>
   }
 
-  getCurrencyData(currency) {
-    return {
-      GBP: { base: 100, symbol: '£' },
-      USD: { base: 100, symbol: '$' },
-    }[this.props.currency]
-  }
+}
 
-  formatAmount(amount, base) {
-    return parseFloat(amount / base).toFixed(2)
-  }
-
-  render() {
-    const currency = this.getCurrencyData()
-    if (currency) {
-      const { symbol, base } = currency
-      const formatted = this.formatAmount(this.props.amount, base)
-
-      return (
-        <span>{symbol}{formatted}</span>
-      )
-    } else {
-      return <span>{this.props.amount}</span>
-    }
-  }
+Money.propTypes = {
+  currency: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
 }
 
 export default Money
